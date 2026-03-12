@@ -45,8 +45,7 @@ Built for Lapis Group to help Afghan students discover and access higher educati
 
 - **Platform:** Hostinger Shared Hosting  
 - **Requirements:** Static file hosting, no backend needed  
-- **Data Source:** `Opportunities at Universities for Afghans.xlsx` (loaded client-side)  
-- **Timeline:** Developed & Deployed Mar 2026
+- **Timeline:** Developed & Deployed Nov 2025
 
 ## Developer
 
