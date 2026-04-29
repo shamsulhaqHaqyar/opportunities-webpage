@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Opportunities</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: url('webq/main-bg.webp') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a.active {
+            color: #667eea;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .search-filter {
+            background: white;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .filter-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .filter-group label {
+            font-weight: 700;
+            color: #4a5568;
+            font-size: 1rem;
+        }
+
+        .filter-input {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .opportunity-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opportunity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            margin-bottom: 2rem;
+        }
+
+        .institution-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .country-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            color: #4a5568;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .program-info {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .program-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .program-description {
+            color: #718096;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .opportunity-details {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-icon {
+            width: 24px;
+            text-align: center;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        .detail-text {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .detail-label {
+            font-weight: 700;
+            color: #4a5568;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .detail-value {
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        .apply-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            letter-spacing: 0.5px;
+        }
+
+        .apply-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .apply-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .deadline-urgent {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .deadline-normal {
+            color: #38a169;
+            font-weight: 600;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem;
+            background: white;
+            border-radius: 20px;
+            color: #718096;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: #cbd5e0;
+        }
+
+        .no-results h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: #718096;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .opportunities-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .opportunities-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .filter-controls {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .search-filter {
+                padding: 2rem 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .opportunity-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 2rem 0;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .opportunity-card {
+                padding: 1.5rem;
+            }
+        }
+
+        .format-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #e6fffa;
+            color: #065f46;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .online-badge {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #667eea;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        .search-filter, .opportunity-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="https://senf.af" class="logo">
+                    <img src="img/header-logo.svg" alt="Senf.af Logo" style="height: 35px; margin-right: 8px; vertical-align: middle;">
+                    Senf
+                </a>
+                <ul class="nav-links">
+                    <li><a href="https://senf.af/">Home</a></li>
+                    <li><a href="https://lms.senf.af" target="_blank">LMS</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Search and Filter Section -->
+        <div class="search-filter">
+            <h2 class="filter-title">Find Your Opportunity</h2>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="search"><i class="fas fa-search"></i> Search Institutions or Programs</label>
+                    <input type="text" id="search" class="filter-input" placeholder="Search by institution name, program, or keyword...">
+                </div>
+                <div class="filter-group">
+                    <label for="format"><i class="fas fa-laptop"></i> Format</label>
+                    <select id="format" class="filter-input">
+                        <option value="">All Formats</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="scholarship"><i class="fas fa-award"></i> Scholarship</label>
+                    <select id="scholarship" class="filter-input">
+                        <option value="">All Scholarship Options</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="degreeType"><i class="fas fa-graduation-cap"></i> Category</label>
+                    <select id="degreeType" class="filter-input">
+                        <option value="">All Degree Types</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="fee"><i class="fas fa-layer-group"></i> Opportunity Type </label>
+                    <select id="fee" class="filter-input">
+                        <option value="">All Types</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="estimatedCost"><i class="fas fa-dollar-sign"></i> Estimated Cost</label>
+                    <select id="estimatedCost" class="filter-input">
+                        <option value="">All Costs</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="accreditation"><i class="fas fa-certificate"></i> Secondary School Accreditation</label>
+                    <select id="accreditation" class="filter-input">
+                        <option value="">All Accreditations</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Opportunities Grid -->
+        <div class="opportunities-grid" id="opportunities-container">
+            <!-- Opportunities will be loaded here -->
+        </div>
+    </main>
+
+    <script>
+        // Excel data will be loaded here
+        const opportunitiesData = [
+            {
+                "Institution": "Flowers for the Future International",
+                "Format ": "Online",
+                "Program": "Remote high-school Education Programme.",
+                "Duration": "Three years, grade 10-12",
+                "Details": "The Flowers for the Future International supports a remote high-school education programme. It provides three-year secondary schooling (grades 10–12) for Afghan girls, with instruction delivered online and students eligible to earn a U.S. high-school diploma. This programme includes English classes (including TOEFL preparation) and some applied university-level courses.",
+                "Link": "https://highbluffacademy.com/admissions/", 
+		        "Scholarship": "Partial",
+		        "EstimatedCost":"Free",      
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Some English level is required to apply.", 
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "Falak Naz Ayoub Consultancy",
+                "Format ": "Online",
+                "Program": "Cambridge system Accredited Online School",
+                "Duration": "Up to six years, depending on the starting grade.",
+                "Details": "The school charges $300 one time for a commitment fee. It starts with English courses to prepare for the school interview. The programme is in English and prepares for a Cambridge IGSCE exam.", 
+		        "Link": "https://falak-naz.com/",
+		        "Scholarship": "Partial",
+		        "EstimatedCost":"$300",      
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Interview with the school (English)",
+		        "Accreditation": "Cambridge AIE"
+            },
+            {
+                "Institution": "Kaaj",
+                "Format ": "Online",
+                "Program": "Guidance and Support for International Scholarship Applications",
+                "Duration": "9-11 months",
+                "Details": "Kaaj Education offers the Girls to Uni Program, a comprehensive year-long higher-education preparation program designed to support Afghan girls in applying to universities abroad. The program includes English language courses, academic writing, digital literacy training, Duolingo English Test (DET) preparation, resilience and life skills classes, and one-to-one mentorship throughout the application process.", 
+		        "Link": "https://www.kaajeducation.org/",
+		        "Scholarship": "Partial",
+		        "EstimatedCost":"Free",      
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "A high school graduate with advanced English, and a commitment to complete a 9–11-month program and its application process",
+		        "Accreditation": "Cambridge AIE"
+            },
+            {
+                "Institution": "Brave Future & Brave Generation Academy",
+                "Format ": "Online",
+                "Program": "HerRight: Global Learning for Afghan Girls",
+                "Duration": "Two years",
+                "Details": "HerRight is a free, fully online secondary education pathway run by Brave Future that enables Afghan girls to complete the final two years of high school following the British curriculum, supported by asynchronous delivery and remote Pearson Edexcel assessment. The programme also integrates workshops on well-being, academic readiness, career planning and personal development to prepare learners for higher education and future careers. (Your text; organisational context from website)", 
+		        "Link": "https://brave-future.com/her-right/",
+		        "Scholarship": "Partial",
+		        "EstimatedCost":"Free",     
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Basic English language proficiency.",
+		        "Accreditation": "Cambridge AIE"
+            },
+            {
+                "Institution": "K12 Schools",
+                "Format ": "Online",
+                "Program": "World-Class Online Education for Students Worldwide",
+                "Duration": "Four years",
+                "Details": "K12 Schools provides a fully online, accredited U.S. high-school diploma programme that Afghan girls can follow from home, with options for both regular and adult learners. The programme is subsidized, includes English support, and leads to a recognized diploma that allows progression to higher education internationally.", 
+		        "Link": "https://www.k12onlineschools.com",
+		        "Scholarship": "Partial",
+		        "EstimatedCost":"$600–$800/year",      
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Equivalent previous academic level. Some English is required and will be improved in the programme.",
+		        "Accreditation": "Cambridge AIE"
+            },
+            {
+                "Institution": "United World Colleges",
+                "Format ": "Face to Face",
+                "Program": "World-Class Education",
+                "Duration": "Two years",
+                "Details": "United World Colleges (UWC) is a global network of 18 schools and colleges that deliver the International Baccalaureate (IB) Diploma Programme to students aged roughly 16–19, selected for academic potential, personal qualities, and alignment with UWC values. UWC aims to foster intercultural understanding, peace, and sustainability by bringing together students from diverse backgrounds.", 
+		        "Link": "https://www.uwc.org/",
+		        "Scholarship": "Full scholarship",
+		        "EstimatedCost":"$38K-$56K/year",     
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Selection based on academic promise, values, potential, extracurricular engagement.",
+		        "Accreditation": "IBO"
+            },
+            {
+                "Institution": "Rawan Online School",
+                "Format ": "Online",
+                "Program": "A Digital Classroom for Afghan Girls’ Success",
+                "Duration": "Nominal duration",
+                "Details": "Rawan Online School (ROS) is a Canada-registered not-for-profit online education platform offering middle and secondary school (grades 7–12) learning with a focus on providing accessible, AI-supported instruction, particularly for Afghan girls who cannot attend traditional schools. The curriculum includes core subjects and language learning resources designed to support continued academic progress. ROS also offers English.", 
+		        "Link": "www.roschool.ca",
+		        "Scholarship": "Full scholarship",
+		        "EstimatedCost":"$100/year",      
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Some English Language level is required.",
+		        "Accreditation": "OSSD"
+            },
+            {
+                "Institution": "Ivy Global School",
+                "Format ": "Face to Face",
+                "Program": "A Virtual Gateway to U.S. Education",
+                "Duration": "1-4 years",
+                "Details": "Ivy Global School is a private, accredited U.S.-aligned virtual school offering online K–12 education with curriculum and instruction by U.S.-licensed teachers, designed so students worldwide can study American standards remotely and work toward an American high-school diploma. It provides flexible, credit-based learning across elementary, middle and high school levels and supports college-preparatory pathways.", 
+		        "Link": "https://ivyglobalschool.org",
+		        "Scholarship": "Partial",
+		        "EstimatedCost":"$4,000/year",      
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "English (beginner or intermediate)",
+		        "Accreditation": "Cognia"
+            },
+            {
+                "Institution": "DD Classroom (a program of Right to Learn Afghanistan)",
+                "Format ": "Online",
+                "Program": "A Virtual Gateway to U.S. Education",
+                "Duration": "six years",
+                "Details": "Darakht-e Danesh Academi (DD Academi) is a virtual education initiative created by Right to Learn Afghanistan that provides free online learning resources, self-paced courses in Dari, Pashto, and English, and an accredited online high school (DD Classroom) serving Afghan students with a combined Afghan and Canadian curriculum leading to an internationally recognised diploma. The platform also includes a digital library of open educational resources and supports learners and educators with tools for study and teaching.", 
+		        "Link": "https://www.darakhtdanesh.org",
+		        "Scholarship": "",
+		        "EstimatedCost":"Free",     
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "",
+		        "Accreditation": "OSSD"
+            },
+            {
+                "Institution": "Parry Sound International School",
+                "Format ": "Online",
+                "Program": "Education to Women and Girls in Afghanistan",
+                "Duration": "12 years",
+                "Details": "Parry Sound International School is a Canadian private school offering online and site-based K-12 education in English, with credit courses across core subjects including English, math, science and social studies that can lead to secondary graduation credits. It operates as a continuous-year programme where students progress through grade levels and earn recognised credits toward the Ontario Secondary School Diploma (OSSD).", 
+		        "Link": "https://parrysoundinternationalschool.com/",
+		        "Scholarship": "",
+		        "EstimatedCost":"",     
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "",
+		        "Accreditation": "OSSD"
+            },
+            {
+                "Institution": "Afghanistan Future Scholars (AFS)",
+                "Format ": "Online",
+                "Program": "TOEFL Preparation and Computer skill Classes",
+                "Duration": "3 months to a year",
+                "Details": "Afghan Future Scholars offers practical online learning programmes for Afghan learners, with focused English language preparation (including TOEFL test preparation, English grammar and speaking practice) and computer skills classes designed to build real language ability and support future educational or scholarship goals. Classes are delivered live online (often via WhatsApp and Google Meet) by experienced instructors, typically run for a few weeks to a couple of months, and require a modest fee (for example similar community-based TOEFL prep courses run around a few hundred Afghan Afghani equivalent) with a certificate of completion provided at the end.", 
+		        "Link": "https://afghan-future-scholars.netlify.app/",
+		        "Scholarship": "",
+		        "EstimatedCost":"Free",      
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "University of California, Berkeley",
+                "Format ": "Hybrid",
+                "Program": "Massive Open Online Courses (MOOCs)",
+                "Duration": "Varies per course",
+                "Details": "Course start and end dates, pricing, and requirements vary by class and are listed on each course’s registration page. Most courses have no strict prerequisites and offer a free audit option so students can explore the course before paying. After successfully completing a course in the verified track, students receive a certificate, which does not count as university credit or guarantee admission but can be used to showcase skills for job or university applications.",
+                "Link": "https://admissions.berkeley.edu", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Varies per course" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Some English Language is required",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "University of Central Asia (UCA)",
+                "Format ": "Online",
+                "Program": "Digital literacy and artificial intelligence, Digital marketing, Cybersecurity, Data analytics",
+                "Duration": "10 weeks",
+                "Details": "UCA is offering free online professional development courses for Afghan women with university degrees, computer literacy, and strong English skills. The program is designed to equip participants with skills and certifications for remote work opportunities in the global digital economy.",
+                "Link": "https://admissions.ucentralasia.org/apply/admission-overview/",
+		        "Scholarship": "",      
+                "EstimatedCost":"Varies per course" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "University of People",
+                "Format ": "Online",
+                "Program": "Tuition-free university granting Bachelors, Masters, Associate Degrees, and Certificates",
+                "Duration": "3-4 years",
+                "Details": "The University of the People (UoPeople) is a 100 % online, non-profit, tuition-free American-accredited university that offers flexible higher-education programmes designed for students worldwide who want to earn associate’s, bachelor’s, or master’s degrees without traditional tuition costs. Its model removes most barriers to access by charging only modest assessment and application fees, and it supports learners from diverse backgrounds to pursue recognised degrees entirely online.",
+                "Link": "https://www.uopeople.edu/",
+		        "Scholarship": "",      
+                "EstimatedCost":"$1,600 per year" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Kankor diploma or equivalent certificate.",
+		        "Accreditation": "ACS WASC"
+            },
+	        {
+                "Institution": "Future Learn",
+                "Format ": "Online",
+                "Program": "Subscription to short courses and expert tracks in all available subjects",
+                "Duration": "Varies in course",
+                "Details": "FutureLearn offers a wide range of short online courses, many of which are free to access and provide certificates upon completion (with an upgrade). These courses are delivered by leading universities and organizations and are suitable for learners worldwide.",
+                "Link": "https://www.futurelearn.com", 
+		        "Scholarship": "Full scholarship",      
+                "EstimatedCost":"$1,600 per year" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Some English skills",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "Academic Upgrading",
+                "Format ": "Hybrid",
+                "Program": "Alberta Curriculum for Your Future in Canada",
+                "Duration": "Varies per course",
+                "Details": "To earn the NorQuest High School Equivalency Diploma, students must complete four high-school-level courses with a minimum grade of 50%, including English and higher-level subjects. At least two courses must be completed at NorQuest College.", 
+		        "Link": "https://www.norquest.ca/programs-and-courses/programs/academic-upgrading/index", 
+		        "Scholarship": "Partial",      
+                "EstimatedCost":"$1,907.40 per course" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "School diploma or Passing NorQuest placement test",
+		        "Accreditation": ""
+            },     
+            {
+                "Institution": "Université Laval  Canada",
+                "Format ": "Online",
+                "Program": "Learn at Your Own Pace and Showcase Your Skills",
+                "Duration": "Varies per course",
+                "Details": "Course start and end dates, pricing, and requirements vary by class and are listed on each course’s registration page. Most courses have no strict prerequisites and offer a free audit option so students can explore the course before paying. After successfully completing a course in the verified track, students receive a certificate, which does not count as university credit or guarantee admission but can be used to showcase skills for job or university applications.", 
+		        "Link": "https://www.ulaval.ca/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Varies per course" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "No admission required",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "Coursera and Eagle Online Academy",
+                "Format ": "Online",
+                "Program": "Free courses in different industries",
+                "Duration": "3 to 9 months",
+                "Details": "Coursera will provide 3,000 free licenses to Afghan women globally. 1000 scholarships are offered through Eagle Online Academy. This opportunity allows participants to access world-class education, paired with our mentorship program to ensure lasting impact. The program includes one year of intensive, comprehensive training, with accredited certification, full access to all program resources for one year, including study materials, workshops, and more. Courses vary in length, ranging from 3 to 9 months, depending on the program and the number of allocated training hours.", 
+		        "Link": "https://eagleonlinelearning.org/admissions/how-to-enroll", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Some English Language level is required.",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "Flying Wings Online School",
+                "Format ": "Online",
+                "Program": "Afghan Curriculum and American High School Diploma",
+                "Duration": "4 years",
+                "Details": "Flying Wings offers the Afghan Curriculum and an American High School Diploma Programme in partnership with Forward International Academy (9-12). ", 
+		        "Link": "https://fw.school/news/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"$200/year" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Some entrance and placement tests",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "CodeWeeKend",
+                "Format ": "Online",
+                "Program": "Free courses in different industries",
+                "Duration": "6 months",
+                "Details": "CodeWeekend is a coding bootcamp and developer community that offers immersive training in web and AI development to equip learners—often from Afghanistan and globally—with practical programming skills and career support in the technology sector. It operates with a focus on mentorship, project-based learning, and job preparedness. ", 
+		        "Link": "https://codeweekend.net/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"$500 per course" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Computer science background",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "Hila Initiative",
+                "Format ": "Online",
+                "Program": "English Language courses",
+                "Duration": "",
+                "Details": "Hila Initiative is a Paris-based, volunteer-run non-profit that provides online English language education, well-being support and mentorship to young Afghan women, designed to foster autonomy, confidence and pathways to further academic or professional opportunities.", 
+		        "Link": "https://fw.school/news/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Afghan women residing in Afghanistan who are older than 18 years.",
+		        "Accreditation": ""
+            }, 
+ 	        {
+                "Institution": "Asian University for Women (Bangladesh)",
+                "Format ": "Face to Face",
+                "Program": "Scholarships and Tertiary Education",
+                "Duration": "3 to 5 years",
+                "Details": "Asian University for Women (AUW) in Bangladesh offers on-campus undergraduate degrees in sciences, technology, and liberal arts for women. Programs take 3–5 years depending on entry path, and English is the language of instruction. Annual costs are around US $15,000, with scholarships available for many students.", 
+		        "Link": "https://asian-university.org/who-we-are/", 
+		        "Scholarship": "Full scholarship",      
+                "EstimatedCost":"US $15,000 per year" ,    
+                "DegreeType": "Undergraduate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "Placement test and school diploma",
+		        "Accreditation": ""
+            }, 
+	        {
+                "Institution": "SOLA (School of Leadership, Afghanistan)",
+                "Format ": "Face to Face",
+                "Program": "All-girl boarding school",
+                "Duration": "Multi year",
+                "Details": "The School of Leadership Afghanistan (SOLA) is an all-girls boarding school in Rwanda that provides Afghan girls access to education after being denied schooling at home. It offers a four-year U.S.-style high school diploma with leadership training. Admission is competitive, and many graduates go on to study at universities abroad. Applicants should check SOLA’s website or social media for updates.", 
+		        "Link": "https://www.sola-afghanistan.org/?utm_source=chatgpt.com", 
+		        "Scholarship": "Full scholarship",      
+                "EstimatedCost":"" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Afghan girls under 18 can apply",
+		        "Accreditation": ""
+            }, 
+	        {
+                "Institution": "International University of Chabahar (IUC) – Iran",
+                "Format ": "Face to Face",
+                "Program": "Study Opportunity in Iran",
+                "Duration": "Four years",
+                "Details": "Islamic Azad University is a large private university system in Iran offering many undergraduate and postgraduate programs. Most studies are on campus, and international students can apply with a high school diploma and academic records. Tuition is required and varies by program, and bachelor’s degrees usually take about four years to complete.", 
+		        "Link": "https://iuc.ac.ir/#", 
+		        "Scholarship": "Full scholarship",      
+                "EstimatedCost":"USD 2,000 – 5,000 per year (approximate)" ,    
+                "DegreeType": "Undergraduate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "Academic transcript and school diploma",
+		        "Accreditation": ""
+            }, 
+	        {
+                "Institution": "Afghan Female Student Outreach (AFSO)",
+                "Format ": "Online",
+                "Program": "Free Global Online Courses Pathway",
+                "Duration": "Varies by course",
+                "Details": "AFSO is a non-profit volunteer organization that provides free, synchronous online courses taught by university professors from around the world. These classes are non-credit, meaning AFSO itself does not grant accredited degrees or official university credits. However, AFSO builds partnerships with external programs that can lead to accredited degrees, such as the Bard Global BA program, where students can study toward an American-accredited degree remotely. and AFSO’s courses help students improve English, academic skills, and university-level knowledge — preparing learners for degree programs or scholarship applications.", 
+		        "Link": "https://www.afsousa.org/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Secondary Education completion and basic English",
+		        "Accreditation": ""
+            }, 
+	        {
+                "Institution": "Kiron",
+                "Format ": "Online",
+                "Program": "Free Global Online Courses Pathway",
+                "Duration": "Varies by course",
+                "Details": "Hundreds of free online courses and programs in areas like language learning, digital skills, career readiness, and more. Courses are self-paced — you can study anytime, anywhere. Kiron’s curriculum can help you prepare for higher education and in some cases support your transition to partner universities where you could complete an accredited degree.", 
+		        "Link": "https://www.kiron.ngo/campus", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Anyone can register.",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "University of Central Asia – Graduate School of Development",
+                "Format ": "Online",
+                "Program": "UCA GSD: Development in Action",
+                "Duration": "4 years",
+                "Details": "The University of Central Asia – Graduate School of Development provides specialized tertiary education, professional training, and research programs focused on development, policy, and community improvement. It equips students and professionals with practical skills to address real-world social and economic challenges.", 
+		        "Link": "https://ucentralasia.org", 
+		        "Scholarship": "Partial",      
+                "EstimatedCost":"~US $5,000 per year" ,    
+                "DegreeType": "Undergraduate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "Passport, academic transcripts and proficiency score",
+		        "Accreditation": ""
+            }, 
+	        {
+                "Institution": "University of the Fraser Valley ",
+                "Format ": "Hybrid",
+                "Program": "UFV: Public University in British Columbia",
+                "Duration": "4 years",
+                "Details": "University of the Fraser Valley (UFV) is a public university in British Columbia, Canada, offering bachelor’s degrees, diplomas, certificates, and some graduate programs. Most programs are on-campus in-person, with select courses and continuing education programs available online or in hybrid formats.", 
+		        "Link": "https://www.ufv.ca/", 
+		        "Scholarship": "Partial",      
+                "EstimatedCost":"USD 1,657 per semester." ,    
+                "DegreeType": "Undergraduate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "High school diploma & English proficiency score",
+		        "Accreditation": ""
+            }, 
+	        {
+                "Institution": "Sahar Education ",
+                "Format ": "Online",
+                "Program": "Free Online Learning for Afghan Women and Girls",
+                "Duration": "Varies per course",
+                "Details": "A free online learning initiative for Afghan women and girls worldwide. Sahar partners with Coursera to give Afghan female learners free access to high-quality online courses in fields like computer science, business, health, languages, data science and social sciences", 
+		        "Link": "https://www.sahareducation.org/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Everyone can register",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "Roshan Afghanistan Online University (RAO University)",
+                "Format ": "Online",
+                "Program": "Free Online University for Students Across Afghanistan",
+                "Duration": "Four years",
+                "Details": "Roshan Afghanistan Online University (RAO) is an online university offering free undergraduate and graduate programs in fields like Language, Social Sciences, Economics, Computer Science, and Political Science all accessible online to students across Afghanistan.", 
+		        "Link": "https://www.afghanistan-uni.org/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Undergraduate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "Academic Transcript",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "Mother International Institute of Education (MIIED)",
+                "Format ": "Online",
+                "Program": "Online Education Access for Afghan Girls",
+                "Duration": "9 months per school year",
+                "Details": "The Mother International Institute of Education (MIIED) provides online education opportunities for Afghan girls and women whose learning has been interrupted. It offers secondary school programs (Grades 7–12), and language courses. Classes are delivered fully online through live and flexible learning, with low-bandwidth access to support students in different locations. Many programs are supported by scholarships, making education accessible for eligible students.", 
+		        "Link": "https://miied.com.au/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Academic Transcript",
+		        "Accreditation": ""
+            },
+            {
+                "Institution": "Woman Online University",
+                "Format ": "Online",
+                "Program": "Online University for Afghan Girls",
+                "Duration": "4 years",
+                "Details": "The Woman Online University (WOU) can offer their own entrance test for students (Kankor equivalent). Programmes last four years and are in Dari and Pashto. They also offer English courses. Currently, they have 17,000+ students in 16 faculties. They also offer continuing studies at UK institutions at a discount.", 
+		        "Link": "https://womanonlineuniversity.com/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Undergraduate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "Academic Transcript",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "Herat Online School",
+                "Format ": "Online",
+                "Program": "Online Education Access for Afghan Girls",
+                "Duration": "Course-based",
+                "Details": "Herat Online School provides English secondary education, free language-based schooling for underserved students, and demand-driven professional training led by volunteers, equipping learners with practical skills, supporting academic growth, and enabling access to global opportunities and community development and career success.", 
+		        "Link": "https://www.afghanistaneducationaction.org/heratonlineschool.html", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Academic Transcript",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "Allama Iqbal Open University (AIOU)",
+                "Format ": "Online",
+                "Program": "Remote English Education with Globally Recognized Qualifications",
+                "Duration": "Full secondary and university programmes",
+                "Details": "AIOU, one of the oldest distance universities, offers fully remote secondary and university programs in English, following the Pakistan curriculum. It serves many Afghan students, sometime supports Dari/Pashto, and provides HEC and internationally recognized qualifications.", 
+		        "Link": "https://www.aiou.edu.pk/bachelor-programmes", 
+		        "Scholarship": "",      
+                "EstimatedCost":"University: ±$1,500/year,Secondary: ±$800/year" ,    
+                "DegreeType": "Undergraduate", 
+                "OpportunityType": "Tertiary Education", 
+		        "Requirements": "Secondary school certificate and English skills",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "Saylor Academy",
+                "Format ": "Online",
+                "Program": "Free, Flexible Online Courses for Skills and Academic Growth",
+                "Duration": "Structured like a school academic system (Grades 7–12)",
+                "Details": "Students can access free, self-paced online courses to build practical skills and knowledge across various fields. Flexible and accessible anywhere with internet, these courses help learners strengthen academics, explore new subjects, and prepare for future education and career opportunities.", 
+		        "Link": "https://www.saylor.org/2025/07/saylor-academy-and-american-university-of-afghanistan-partner-to-offer-free-courses-for-skills-for-better-opportunities/?utm_source=chatgpt.com", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Professional Education", 
+		        "Requirements": "Anyone can apply",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "ANAR Academy",
+                "Format ": "Online",
+                "Program": "Free Learning for Afghan Girls – ANAR Academy",
+                "Duration": "Self-paced; typically 10–60 hours per course",
+                "Details": "ANAR Academy is a Germany-based nonprofit offering free, safe, high-quality education for Afghan girls unable to attend school. It supports their right to education through accessible online and hybrid learning programs designed to ensure continued learning opportunities.", 
+		        "Link": "https://anar.academy/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Academic Level",
+		        "Accreditation": ""
+            }, 
+            {
+                "Institution": "Afghanistan Open University (AOU)",
+                "Format ": "Online",
+                "Program": "Afghanistan Open University: Learn Anywhere, Anytime",
+                "Duration": "depends on the program you choose.",
+                "Details": "Afghanistan Open University (AOU) provides flexible online education, offering school, diploma, and degree programs. Students can study remotely through digital classes and materials, making learning accessible from anywhere and supporting continued education for diverse learners.", 
+		        "Link": "https://afgou.org/", 
+		        "Scholarship": "",      
+                "EstimatedCost":"Free" ,    
+                "DegreeType": "Certificate", 
+                "OpportunityType": "Secondary Education", 
+		        "Requirements": "Secondary education Completion",
+		        "Accreditation": ""           
+            }, 
+        ];
+
+        // DOM elements
+        const searchInput = document.getElementById('search');
+        const formatFilter = document.getElementById('format');
+        const opportunitiesContainer = document.getElementById('opportunities-container');
+        const scholarshipFilter = document.getElementById('scholarship');
+        const degreeTypeFilter = document.getElementById('degreeType');
+        const feeFilter = document.getElementById('fee');
+        const estimatedCostFilter = document.getElementById('estimatedCost');
+        const accreditationFilter = document.getElementById('accreditation');
+
+        // Get unique values for filters
+        function getUniqueValues(data, field) {
+            return [...new Set(data.map(item => item[field]).filter(value => value && value.trim() !== ''))].sort();
+        }
+
+        // Populate filter options
+        function populateFilters() {
+
+            const formats = getUniqueValues(opportunitiesData, 'Format ');
+            formats.forEach(format => {
+                const option = document.createElement('option');
+                option.value = format;
+                option.textContent = format;
+                formatFilter.appendChild(option);
+            });
+
+            const scholarships = getUniqueValues(opportunitiesData, 'Scholarship');
+            scholarships.forEach(s => {
+                const option = document.createElement('option');
+                option.value = s;
+                option.textContent = s;
+                scholarshipFilter.appendChild(option);
+            });
+
+            const degreeTypes = getUniqueValues(opportunitiesData, 'DegreeType');
+            degreeTypes.forEach(d => {
+                const option = document.createElement('option');
+                option.value = d;
+                option.textContent = d;
+                degreeTypeFilter.appendChild(option);
+            });
+
+            const fees = getUniqueValues(opportunitiesData, 'OpportunityType');
+            fees.forEach(f => {
+                const option = document.createElement('option');
+                option.value = f;
+                option.textContent = f;
+                feeFilter.appendChild(option);
+            });
+            const costCategories = [
+                { label: 'Free', min: 0, max: 0 },
+                { label: '$1 – $500', min: 1, max: 500 },
+                { label: '$501 – $2,000', min: 501, max: 2000 },
+                { label: '$2,001 – $10,000', min: 2001, max: 10000 },
+                { label: '$10,001+', min: 10001, max: Infinity },
+                { label: 'Varies per course', min: null, max: null }
+            ];
+            costCategories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.label;
+                option.textContent = cat.label;
+                estimatedCostFilter.appendChild(option);
+            });
+            const accreditations = getUniqueValues(opportunitiesData, 'Accreditation');
+            accreditations.forEach(a => {
+                const option = document.createElement('option');
+                option.value = a;
+                option.textContent = a;
+                accreditationFilter.appendChild(option);
+            });
+        }
+
+        // Get country flag emoji
+        function getCountryFlag(country) {
+            const flags = {
+                'USA': '🇺🇸',
+                'UK': '🇬🇧',
+                'Germany': '🇩🇪',
+                'Germany/International': '🌍',
+                'USA/International': '🌍',
+                'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+                'Spain': '🇪🇸',
+                'Canada': '🇨🇦',
+                'Afghanistan': '🇦🇫',
+                'International': '🌍'
+            };
+            return flags[country] || '🌍';
+        }
+
+        // Check if deadline is urgent (within 30 days)
+        function isDeadlineUrgent(deadline) {
+            if (!deadline || deadline.toLowerCase().includes('rolling') || deadline.toLowerCase().includes('different')) {
+                return false;
+            }
+            
+            try {
+                const deadlineDate = new Date(deadline);
+                const today = new Date();
+                const thirtyDaysFromNow = new Date(today.getTime() + (30 * 24 * 60 * 60 * 1000));
+                return deadlineDate <= thirtyDaysFromNow && deadlineDate >= today;
+            } catch {
+                return false;
+            }
+        }
+
+        // Create opportunity card HTML
+        function createOpportunityCard(opportunity) {
+            const isUrgent = isDeadlineUrgent(opportunity.Deadline);
+            const flag = getCountryFlag(opportunity.Country);
+            const format = opportunity['Format '] || '';
+            
+            return `
+                <div class="opportunity-card" data-country="${opportunity.Country}" data-language="${opportunity.Language}" data-format="${format}">
+                    <div class="card-header">
+                        <h3 class="institution-name">${opportunity.Institution}</h3>
+                        <div class="country-badge">
+                            ${flag} ${opportunity.Country || 'International'}
+                            ${format ? `<span class="format-badge ${format.toLowerCase() === 'online' ? 'online-badge' : ''}">${format}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    ${opportunity.Program || opportunity.Department ? `
+                        <div class="program-info">
+                            <div class="program-title">${opportunity.Program || opportunity.Department}</div>
+                            ${opportunity.Details ? `<div class="program-description">${opportunity.Details.substring(0, 200)}${opportunity.Details.length > 200 ? '...' : ''}</div>` : ''}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="opportunity-details">
+                        ${opportunity.Duration ? `
+                            <div class="detail-item">
+                                <i class="fas fa-clock detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Duration</span>
+                                    <span class="detail-value">${opportunity.Duration}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${opportunity.Language ? `
+                            <div class="detail-item">
+                                <i class="fas fa-language detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Language</span>
+                                    <span class="detail-value">${opportunity.Language}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        ${opportunity.DegreeType ? `
+                            <div class="detail-item">
+                                <i class="fas fa-graduation-cap detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Degree Type</span>
+                                    <span class="detail-value">${opportunity.DegreeType}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${opportunity.Fee ? `
+                            <div class="detail-item">
+                                <i class="fas fa-layer-group detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Fee </span>
+                                    <span class="detail-value">${opportunity.Fee}${opportunity.Scholarship ? ' • ' + opportunity.Scholarship + ' Scholarship' : ''}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${opportunity.Deadline ? `
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Deadline</span>
+                                    <span class="detail-value ${isUrgent ? 'deadline-urgent' : 'deadline-normal'}">${opportunity.Deadline}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        ${opportunity.EstimatedCost ? `
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Estimated Cost</span>
+                                    <span class="detail-value">${opportunity.EstimatedCost}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${opportunity.Accreditation ? `
+                            <div class="detail-item">
+                                <i class="fas fa-certificate detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Accreditation</span>
+                                    <span class="detail-value">${opportunity.Accreditation}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${opportunity.Requirements ? `
+                            <div class="detail-item">
+                                <i class="fas fa-clipboard-list detail-icon"></i>
+                                <div class="detail-text">
+                                    <span class="detail-label">Requirements</span>
+                                    <span class="detail-value">${opportunity.Requirements.substring(0, 100)}${opportunity.Requirements.length > 100 ? '...' : ''}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    <button class="apply-button" onclick="window.open('${opportunity.Link}', '_blank')">
+                        <i class="fas fa-external-link-alt"></i> View Details
+                    </button>
+                </div>
+            `;
+        }
+
+        // Filter opportunities based on search criteria
+        // Filter opportunities based on search criteria
+        function filterOpportunities() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedFormat = formatFilter.value;
+            const selectedScholarship = scholarshipFilter.value;
+            const selectedDegreeType = degreeTypeFilter.value;
+            const selectedFee = feeFilter.value;
+            const selectedEstimatedCost = estimatedCostFilter.value;
+            const selectedAccreditation = accreditationFilter.value;
+
+            let filteredOpportunities = opportunitiesData.filter(opportunity => {
+                const matchesSearch = 
+                    opportunity.Institution.toLowerCase().includes(searchTerm) ||
+                    (opportunity.Program && opportunity.Program.toLowerCase().includes(searchTerm)) ||
+                    (opportunity.Department && opportunity.Department.toLowerCase().includes(searchTerm)) ||
+                    (opportunity.Details && opportunity.Details.toLowerCase().includes(searchTerm));
+                
+                const matchesFormat = !selectedFormat || opportunity['Format '] === selectedFormat;
+                const matchesScholarship = !selectedScholarship || opportunity.Scholarship === selectedScholarship;
+                const matchesDegreeType = !selectedDegreeType || opportunity.DegreeType === selectedDegreeType;
+                const matchesFee = !selectedFee || opportunity.OpportunityType === selectedFee;
+                
+                const matchesEstimatedCost = !selectedEstimatedCost || (() => {
+                    const raw = (opportunity.EstimatedCost || '').toString().toLowerCase().trim();
+                    const cleanRaw = raw.replace(/,/g, '');
+                    const kMatch = cleanRaw.match(/(\d+\.?\d*)\s*k/i);
+                    const num = kMatch ? parseFloat(kMatch[1]) * 1000 : parseFloat(cleanRaw.match(/[\d.]+/)?.[0] || 'NaN');
+                    if (selectedEstimatedCost === 'Free') return raw === 'free' || num === 0;
+                    if (selectedEstimatedCost === 'Varies per course') return raw === 'varies per course' || raw.startsWith('varies');
+                    if (selectedEstimatedCost === '$1 – $500') return !isNaN(num) && num >= 1 && num <= 500;
+                    if (selectedEstimatedCost === '$501 – $2,000') return !isNaN(num) && num >= 501 && num <= 2000;
+                    if (selectedEstimatedCost === '$2,001 – $10,000') return !isNaN(num) && num >= 2001 && num <= 10000;
+                    if (selectedEstimatedCost === '$10,001+') return !isNaN(num) && num >= 10001;
+                    return false;
+                })();
+                const matchesAccreditation = !selectedAccreditation || opportunity.Accreditation === selectedAccreditation;
+                
+                return matchesSearch && matchesFormat && matchesScholarship && matchesDegreeType && matchesFee && matchesEstimatedCost && matchesAccreditation;
+            });
+
+            displayOpportunities(filteredOpportunities);
+        }
+
+        // Display opportunities in the grid
+        function displayOpportunities(opportunitiesToShow) {
+            if (opportunitiesToShow.length === 0) {
+                opportunitiesContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No opportunities found</h3>
+                        <p>Try adjusting your search criteria or filters to find more opportunities that match your interests.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            opportunitiesContainer.innerHTML = opportunitiesToShow.map(createOpportunityCard).join('');
+            
+            // Re-observe cards for animations
+            observeCards();
+        }
+
+        // Animate numbers
+        function animateNumber(element, target) {
+            const start = 0;
+            const duration = 1000;
+            const startTime = Date.now();
+            
+            function update() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const current = Math.floor(progress * target);
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Set up intersection observer for card animations
+        function observeCards() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.opportunity-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', filterOpportunities);
+        formatFilter.addEventListener('change', filterOpportunities);
+        scholarshipFilter.addEventListener('change', filterOpportunities);
+        degreeTypeFilter.addEventListener('change', filterOpportunities);
+        feeFilter.addEventListener('change', filterOpportunities);
+        estimatedCostFilter.addEventListener('change', filterOpportunities);
+        accreditationFilter.addEventListener('change', filterOpportunities);
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.backdropFilter = 'blur(15px)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.backdropFilter = 'blur(10px)';
+            }
+        });
+
+        // Loading animation for apply buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('apply-button') || e.target.closest('.apply-button')) {
+                const button = e.target.classList.contains('apply-button') ? e.target : e.target.closest('.apply-button');
+                const originalText = button.innerHTML;
+                
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening...';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 1000);
+            }
+        });
+
+        // Load data from Excel file
+        async function loadExcelData() {
+            try {
+                const response = await window.fs.readFile('Opportunities at Universities for Afghans.xlsx');
+                const workbook = XLSX.read(response);
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                const rawData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '' });
+                
+                const headers = rawData[0];
+                const dataRows = rawData.slice(1);
+                
+                // Clear existing data and load from Excel
+                opportunitiesData.length = 0;
+                
+                dataRows.forEach(row => {
+                    const opportunity = {};
+                    headers.forEach((header, index) => {
+                        opportunity[header.trim()] = row[index] || '';
+                    });
+                    
+                    // Only add if institution name exists
+                    if (opportunity.Institution && opportunity.Institution.trim() !== '') {
+                        opportunitiesData.push(opportunity);
+                    }
+                });
+                
+                console.log('Loaded', opportunitiesData.length, 'opportunities from Excel');
+                
+            } catch (error) {
+                console.log('Could not load Excel file, using sample data');
+            }
+            
+            // Initialize the page
+            populateFilters();
+            displayOpportunities(opportunitiesData);
+        }
+
+        // Initialize page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if XLSX library is available
+            if (typeof XLSX !== 'undefined') {
+                loadExcelData();
+            } else {
+                // Load XLSX library dynamically
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+                script.onload = loadExcelData;
+                document.head.appendChild(script);
+            }
+            
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+</html>
